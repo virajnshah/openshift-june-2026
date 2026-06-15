@@ -99,5 +99,16 @@
 
 ## Info - Docker Container
 <pre>
-  
+- is a running instance of a Docker Image
+- each container gets its own file system ( files and folders )
+- each container gets its own unique name and IP address
+- each container gets its own Network stack ( OSI - 7 layers )
+- each container uses its own namespaces ( 7 types of namespaces )
+  - PID namespace
+  - network namespace
+- every containter gets is own Port range ( 0 - 65535 )
+- it is for these reasons, people tend to compare a container with a VM or an Operating System
+- technically comparing an OS with container is wrong, but because they have OS/VM and container has some common
+  features, people tend make this sort of comparisons
+- container will have its own hostname just like VMs/OS
 </pre>
