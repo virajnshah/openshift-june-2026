@@ -40,5 +40,32 @@
 
 ## Info - Containerization Overview
 <pre>
-  
+- it is a light-weight application virtualization technology
+- each container represents one application ( or application process in OS )
+- container's don't represent an Operating System
+- containers will never be able to replace OS or VMs
+- generally one process runs per container
+- container = application + dependent library + tools
+- is a linux technology
+- linux kernel supports
+  1. Namespace 
+     - one container can be isolated from other containers
+  2. Control Groups or CGroups
+     - we can apply resource quota restrictions on container level
+     - we can restrict how much RAM a particular can utilize at the max
+     - we can restrict how much storage a particular can utilize at the max
+     - we can restrict how much % of CPU can be utilized by a single container
+- Container Engine
+  - is a high-level user-friendly software that manages containers and images
+  - under the hood, container engines depends on Container Runtimes to manage containers and images
+  - examples
+    - Docker 
+    - Podman
+- Container Runtime
+  - is a low-level software that manages containers and images
+  - it is not user-friendly, hence end-users generally don't use this directly
+  - examples
+    - runC
+    - cRun
+    - CRI-O
 </pre>
