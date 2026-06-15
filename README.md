@@ -26,3 +26,7 @@ Ubuntu 24.04 64-bit OS
 
 Participants
 ![Server2](server2.png)
+
+Check you lab
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/81a0d34b-735b-4242-8c65-e149e8bede77" />
+
