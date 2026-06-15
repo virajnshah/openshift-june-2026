@@ -1,4 +1,4 @@
-# Day 1
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/e0f84258-c130-46e1-8c41-e3b32ad51f00" /># Day 1
 
 ## Info - Hypervisor Overview
 <pre>
@@ -201,3 +201,20 @@ docker rm ubuntu1-jegan
 docker ps 
 ```
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/f660418b-41f1-40aa-938c-b022f2a5a28f" />
+
+## Lab - Downloading image from Docker Hub Remote Registry to Local Docker Registry
+```
+docker pull mysql:latest
+docker images
+```
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/cc609fad-563b-4a31-94c3-bd51149d3a21" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/21796aa5-3403-45ea-b814-dbb158947750" />
+
+
+## Lab - Find more details about a docker image
+```
+docker inspect image mysql:latest
+```
+
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/fc6f705d-38a1-4324-ba55-a50822401ab3" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/983c018f-a2dd-42fd-bd51-d61ce139420f" />
