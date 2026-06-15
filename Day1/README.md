@@ -113,4 +113,12 @@
 - container will have its own hostname just like VMs/OS
 </pre>
 
+## Lab - Find your docker version
+```
+docker --version
+```
 
+## Lab - Listing the docker images present in your local docker registry
+```
+docker images
+```
