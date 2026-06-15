@@ -59,7 +59,11 @@
   - is a high-level user-friendly software that manages containers and images
   - under the hood, container engines depends on Container Runtimes to manage containers and images
   - examples
-    - Docker 
+    - Docker
+      - is a container engine
+      - Docker Inc is the organization which developed runC, containerd, dockerd & docker
+      - dockerd depends on containerd to manage images and containers
+      - containerd in turn depends on runC container runtime to manage images and containers
     - Podman
 - Container Runtime
   - is a low-level software that manages containers and images
