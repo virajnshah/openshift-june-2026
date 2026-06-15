@@ -175,3 +175,21 @@ docker start unruffled_leakey
 docker ps
 ```
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/43dd5404-5434-49ae-ab24-2406014c5b06" />
+
+## Lab - Deleting a running container
+
+Ideally to delete a container, we must stop it first
+```
+# List all running containers
+docker ps
+
+# Stop one container
+docker stop ubuntu1-jegan
+
+# Delete container
+docker rm ubuntu1-jegan
+
+# List all running containers
+docker ps 
+```
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/f660418b-41f1-40aa-938c-b022f2a5a28f" />
