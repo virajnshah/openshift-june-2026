@@ -218,3 +218,22 @@ docker inspect image mysql:latest
 
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/fc6f705d-38a1-4324-ba55-a50822401ab3" />
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/983c018f-a2dd-42fd-bd51-d61ce139420f" />
+
+## Lab - Creating a container in interactive(foreground) mode and coming out of container shell without stopping it
+```
+docker run -it --name ubuntu1-jegan --hostname ubuntu1-jegan ubuntu:latest /bin/bash
+hostname
+hostname -i
+```
+
+Let's say, you wish to come out of the ubuntu1-jegan container shell without stopping it
+```
+Press Ctrl+P followed by Ctrl+Q
+```
+
+Now check if the container is still running
+```
+docker ps
+```
+
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/bc05e678-b047-4dc6-8c60-c0939b10fdeb" />
