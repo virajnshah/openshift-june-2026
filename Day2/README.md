@@ -237,6 +237,9 @@ oc get rs
 
 List the pods
 ```
+oc get pods
+oc get pod
+oc get po
 
 ```
 
