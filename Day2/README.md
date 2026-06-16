@@ -294,5 +294,15 @@ oc describe rs/nginx-bb9bcb898
 oc project jegan
 oc get pods
 oc describe pod/nginx-bb9bcb898-
+```
 
+## Lab - Port forward - used for quick debugging
+```
+oc project jegan
+oc get pods
+# Terminal 1 (Ctrl+C to stop once curl command responds)
+oc port-forward pod/nginx-bb9bcb898-bbx2g 9090:8080
+
+# Terminal 2
+curl http://localhost:9090
 ```
