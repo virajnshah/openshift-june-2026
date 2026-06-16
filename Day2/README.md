@@ -191,3 +191,8 @@ Finding the currently active project
 oc project
 ```
 
+Deleting a project that you created
+```
+oc delete project jegan
+```
+
