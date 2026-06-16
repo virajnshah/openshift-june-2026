@@ -215,10 +215,10 @@ oc get is | grep nginx
 oc project jegan
 
 # Server 1
-oc create deploy nginx --image==image-registry.openshift-image-registry.svc:5000/openshift/nginx:1.26 --replicas=3
+oc create deploy nginx --image=image-registry.openshift-image-registry.svc:5000/openshift/nginx:1.26 --replicas=3
 
 # Server 2
-oc create deploy nginx --image==image-registry.openshift-image-registry.svc:5000/openshift/bitnami-nginx:1.26 --replicas=3
+oc create deploy nginx --image=image-registry.openshift-image-registry.svc:5000/openshift/bitnami-nginx:1.26 --replicas=3
 ```
 
 List the deployment under your project
