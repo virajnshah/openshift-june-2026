@@ -46,7 +46,7 @@ oc get nodes
 
 ## Info - Kubernetes
 <pre>
-- this is a container orchestration plaform developed by Google
+- this is a container orchestration plaform developed by Google in Golang
 - this was originally called borg inside Google
 - borg was used by Google many years in mulitple complex projects internally before they decided to make it opensource
 - borg was refactored as Kubernetes improving many things
