@@ -1,4 +1,4 @@
-# Day 2
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/247632af-9469-4758-aa93-f3e267817f0f" /># Day 2
 
 ## Lab - Check if you are able to access Openshift
 ```
@@ -200,3 +200,13 @@ Deleting a project that you created
 oc delete project jegan
 ```
 
+## Lab - List the nginx images present in your Openshift Cluster
+```
+oc get imagestreams -n openshift
+
+oc project openshift
+oc get imagestreams
+oc get imagestream
+oc get is | grep nginx
+```
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/00e3e07c-8336-4922-abd6-329f82de19fc" />
