@@ -114,3 +114,11 @@ oc get nodes
   - User Management
   - Internal Container Image Registry ( comes out of the box )
 </pre>
+
+## Lab - Listing all the nodes in the Openshift cluster
+```
+oc get nodes
+kubectl get nodes
+```
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/de0b33c6-4f77-4ef4-b967-5d2bee04a694" />
+
