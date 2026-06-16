@@ -240,10 +240,14 @@ List the pods
 oc get pods
 oc get pod
 oc get po
-
 ```
 
 Deleting deployment
+Note
+<pre>
+- When deployment is deleted, it will automatically delete all the replicasets and pods under them
+- once deleted, there is no way to recover them, hence think twice before deleting your deployment
+</pre>
 ```
 oc delete deploy/nginx
 ```
