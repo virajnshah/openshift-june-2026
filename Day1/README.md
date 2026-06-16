@@ -90,6 +90,9 @@
 - those users who are part of docker user group, they only gain read/write access to the unix socket that is usef by docker client & server
 </pre>
 
+## Info - Docker High Level Architecture
+![Docker](DockerHighLevelArchitecture.png)
+
 ## Info - Docker Image
 <pre>
 - is a blueprint of a container
@@ -100,6 +103,9 @@
 - the unique ids are 256 bit HASH
 - the image layers can be shared by multiple docker images
 </pre>
+
+## Info - Docker Image Layers
+![Docker Image Layers](DockerLayers.png)
 
 ## Info - Docker Container
 <pre>
@@ -307,6 +313,8 @@ Lets's create a loadbalancer container with port forward to expose this containe
 ```
 docker run -d --name lb-jegan --hostname lb-jegan -p 8080:80 nginx:latest
 ```
+
+![Docker](PortForwarding.png)
 
 List and check all your containers
 ```
