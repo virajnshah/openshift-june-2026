@@ -219,5 +219,25 @@ oc create deploy nginx --image==image-registry.openshift-image-registry.svc:5000
 
 # Server 2
 oc create deploy nginx --image==image-registry.openshift-image-registry.svc:5000/openshift/bitnami-nginx:1.26 --replicas=3
+```
+
+List the deployment under your project
+```
+oc get deployments
+oc get deployment
+oc get deploy
+```
+
+List the replicasets under your project
+```
+oc get replicasets
+oc get replicaset
+oc get rs
+```
+
+List the pods
+```
 
 ```
+
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/a11d0d86-eab1-4da0-8da2-3194966f5ca0" />
