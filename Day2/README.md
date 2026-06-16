@@ -132,4 +132,36 @@ kubectl get nodes
 - Deployment is a in-built Resource supported by Kubernetes and Openshift
 </pre>
 
+## Info - API Server
+<pre>
+- API is one of the Control Plane components that runs in master nodes
+- API Server is a collection of many REST APIs for every feature supported by Openshift
+- API Server is the only component that is allowed to read/write into etcd key/value datastore
+- API Server sends events each time the etcd database is updated
+  - New Pod created
+  - Existing Pod modified
+  - Existing Pod deleted
+  - New Deployment created
+  - Existing Deployment modified
+  - Existing Deployment deleted
+</pre>  
+
 ## Info - Deployment Controller
+<pre>
+- Controller is a special type of Pod that runs in the Kubernetes/Openshift cluster
+- You can imagine this application as infinite loop
+- controllers in general - are the ones who does the actual work
+- Deployment Controller supports rolling update
+  - used for upgrading your application from one version to the other ( without downtime )
+- Deployment Controller depends on ReplicaSet Controller for Scale up/down
+- For stateless application, 2 Controllers are involved
+  1. Deployment Controller
+     - Deployment Controller manages a Resource type called Deployment
+     - Deployment is a collection of one or more ReplicaSet
+     - ReplicaSet is a collection of one or more Pods
+     - Pods is a logical group of one or more Containers
+  2. ReplicaSet Controller
+     - this ensure if user asked to run 3 Pods instances of their application, those 3 are always running
+     - responsible scale up/down
+     - ReplicaSet Controller manages a Resource type called ReplicaSet
+</pre>
