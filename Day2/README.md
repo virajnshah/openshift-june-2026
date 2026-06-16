@@ -165,3 +165,29 @@ kubectl get nodes
      - responsible scale up/down
      - ReplicaSet Controller manages a Resource type called ReplicaSet
 </pre>
+
+## Lab - Let's create our first project
+Replace 'jegan' with your name because the project name must be unique within the Openshift Cluster.
+
+Create a openshift project
+```
+oc new-project jegan
+```
+
+Listing all the projects
+```
+oc get projects
+oc get project
+```
+
+Switching between projects
+```
+oc project jegan
+oc project default
+```
+
+Finding the currently active project
+```
+oc project
+```
+
