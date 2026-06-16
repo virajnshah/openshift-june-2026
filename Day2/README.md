@@ -209,4 +209,15 @@ oc get imagestreams
 oc get imagestream
 oc get is | grep nginx
 ```
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/247632af-9469-4758-aa93-f3e267817f0f" />
+
+## Lab - Deploy your first stateless application into Openshift
+```
+oc project jegan
+
+# Server 1
+oc create deploy nginx --image==image-registry.openshift-image-registry.svc:5000/openshift/nginx:1.26 --replicas=3
+
+# Server 2
+oc create deploy nginx --image==image-registry.openshift-image-registry.svc:5000/openshift/bitnami-nginx:1.26 --replicas=3
+
+```
