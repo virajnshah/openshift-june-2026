@@ -75,7 +75,7 @@ oc get nodes
 - there are two types of machines involved in the Kubernetes Cluster
   1. Master Node 
      - this machine runs components that provides the Container Orchestration Features for the cluster
-     - by default, user application will run here ( however, you can override/configure to allow deploying user applications )
+     - by default, user application will not run here ( however, you can override/configure to allow deploying user applications )
      - this is where Control Plane Components will be running
        1. API Server
        2. etcd key/value database
@@ -86,4 +86,10 @@ oc get nodes
      - this machine is where user application will be deployed
  - node are machines with dedicated linux OS, it can be Physical Server or Virtual Machine on your local datacenter, or an ec2 in public cloud
  - we can install any Linux OS distribution into the nodes
+</pre>
+
+## Info - Red Hat Openshift
+<pre>
+- is Red Hat's distribution of Kuberentes
+- it is developed on top of opensource Kubernetes, but this is commercial 
 </pre>
