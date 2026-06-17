@@ -13,6 +13,26 @@ oc apply -f mysql-statefulset.yml
 echo "\nWaiting for mysql-0 to be Ready..."
 oc wait pod/mysql-0 --for=condition=Ready --timeout=180s
 
+echo "\nCreating replication and monitor users on mysql-0..."
+# The Bitnami MariaDB image does not reliably create MARIADB_REPLICATION_USER
+# via env vars in all versions. Creating the users explicitly on mysql-0 after
+# first boot guarantees they exist before replicas try to connect.
+#
+# replicator: used by mysql-1, mysql-2 to stream the binary log from mysql-0.
+# monitor:    used by ProxySQL to health-check all three MySQL backends.
+#             ProxySQL defaults to monitor/monitor when not explicitly configured.
+oc exec mysql-0 -- mysql -uroot -proot@123 <<SQL
+CREATE USER IF NOT EXISTS 'replicator'@'%' IDENTIFIED BY 'repl@123';
+GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';
+
+CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';
+GRANT SELECT, REPLICATION CLIENT ON *.* TO 'monitor'@'%';
+
+FLUSH PRIVILEGES;
+SHOW GRANTS FOR 'replicator'@'%';
+SHOW GRANTS FOR 'monitor'@'%';
+SQL
+
 echo "\nDeploying ProxySQL..."
 oc apply -f proxysql-cm.yml
 oc apply -f proxysql-deploy.yml
@@ -28,12 +48,8 @@ oc apply -f wordpress-svc.yml
 oc apply -f wordpress-route.yml
 
 echo "\nDone."
-echo "\nNFS subfolders created automatically under /var/nfs/jegan/mysql/:"
-echo "  mysql-0/   <- mysql-0 Pod data directory"
-echo "  mysql-1/   <- mysql-1 Pod data directory"
-echo "  mysql-2/   <- mysql-2 Pod data directory"
 echo "\nUseful commands:"
 echo "  Scale WordPress:  oc scale statefulset wordpress --replicas=3"
 echo "  Scale MySQL:      oc scale statefulset mysql --replicas=3"
 echo "  Check pods:       oc get pods"
-echo "  Verify subPaths:  ls /var/nfs/jegan/mysql/   (run on NFS server)"
+echo "  Check replication: oc exec mysql-1 -- mysql -uroot -proot@123 -e 'SHOW SLAVE STATUS\G'"

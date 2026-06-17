@@ -8,26 +8,28 @@ data:
 
     admin_variables=
     {
-      # Admin interface listens on port 6032.
-      # Connect with: mysql -h <proxysql-pod-ip> -P6032 -uproxyadmin -pproxyadmin@123
       admin_credentials="proxyadmin:proxyadmin@123"
       mysql_ifaces="0.0.0.0:6032"
     }
 
     mysql_variables=
     {
-      # Port 6033 is where MySQL clients (WordPress) connect.
       interfaces="0.0.0.0:6033"
       default_query_delay=0
       default_query_timeout=36000000
       max_connections=2048
       default_schema="wordpress"
+      # Credentials ProxySQL uses to health-check MySQL backends.
+      # Must match the 'monitor'@'%' user created in deploy.sh on mysql-0.
+      monitor_username="monitor"
+      monitor_password="monitor"
+      monitor_connect_interval=2000
+      monitor_ping_interval=2000
     }
 
-    # mysql_servers defines the backend MySQL pods.
-    # hostgroup 10 = writers  -> mysql-0.mysql (the primary, handles writes)
-    # hostgroup 20 = readers  -> mysql-0, mysql-1, mysql-2 (all can serve reads)
-    # mysql-0 is in both groups so reads still work when you have only 1 replica.
+    # hostgroup 10 = writer  -> mysql-0 (primary, handles all writes)
+    # hostgroup 20 = readers -> mysql-0, mysql-1, mysql-2 (serve SELECT queries)
+    # mysql-0 is in both groups so reads still work with a single replica.
     mysql_servers=
     (
       {
@@ -68,8 +70,6 @@ data:
       }
     )
 
-    # mysql_users defines which credentials WordPress uses to connect.
-    # default_hostgroup=10 means unmatched queries go to the writer by default.
     mysql_users=
     (
       {
@@ -80,18 +80,9 @@ data:
       }
     )
 
-    # mysql_query_rules is the core of ProxySQL.
-    # Rules are evaluated top to bottom; first match wins.
-    #
-    # Rule 1: SELECT ... FOR UPDATE must go to the writer (hostgroup 10).
-    #         This is used by WordPress for row locking during transactions.
-    #         If this went to a replica it would fail because replicas are read-only.
-    #
-    # Rule 2: All other SELECT queries go to readers (hostgroup 20).
-    #         ProxySQL round-robins across mysql-0, mysql-1, mysql-2.
-    #
-    # Everything else (INSERT, UPDATE, DELETE, CREATE, etc.) falls through
-    # to the default_hostgroup=10 set in mysql_users, which is the writer.
+    # Rule 1: SELECT ... FOR UPDATE must go to the writer (row locking).
+    # Rule 2: All other SELECTs go to readers (round-robin across hostgroup 20).
+    # Everything else (INSERT/UPDATE/DELETE) falls through to default_hostgroup=10.
     mysql_query_rules=
     (
       {
@@ -108,6 +99,6 @@ data:
         match_pattern="^SELECT"
         destination_hostgroup=20
         apply=1
-        comment="SELECT -> readers (round-robin across hostgroup 20)"
+        comment="SELECT -> readers"
       }
     )
