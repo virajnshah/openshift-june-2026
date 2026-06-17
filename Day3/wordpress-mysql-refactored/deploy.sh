@@ -14,24 +14,17 @@ echo "\nWaiting for mysql-0 to be Ready..."
 oc wait pod/mysql-0 --for=condition=Ready --timeout=180s
 
 echo "\nCreating replication and monitor users on mysql-0..."
-# The Bitnami MariaDB image does not reliably create MARIADB_REPLICATION_USER
-# via env vars in all versions. Creating the users explicitly on mysql-0 after
-# first boot guarantees they exist before replicas try to connect.
-#
-# replicator: used by mysql-1, mysql-2 to stream the binary log from mysql-0.
-# monitor:    used by ProxySQL to health-check all three MySQL backends.
-#             ProxySQL defaults to monitor/monitor when not explicitly configured.
-oc exec mysql-0 -- mariadb -uroot -proot@123 <<SQL
-CREATE USER IF NOT EXISTS 'replicator'@'%' IDENTIFIED BY 'repl@123';
-GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';
+oc exec mysql-0 -- mariadb -uroot -proot@123 \
+  -e "CREATE USER IF NOT EXISTS 'replicator'@'%' IDENTIFIED BY 'repl@123';" \
+  -e "GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';" \
+  -e "CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';" \
+  -e "GRANT SELECT, REPLICATION CLIENT ON *.* TO 'monitor'@'%';" \
+  -e "FLUSH PRIVILEGES;" \
+  -e "SELECT user, host FROM mysql.user WHERE user IN ('replicator','monitor');"
 
-CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';
-GRANT SELECT, REPLICATION CLIENT ON *.* TO 'monitor'@'%';
-
-FLUSH PRIVILEGES;
-SHOW GRANTS FOR 'replicator'@'%';
-SHOW GRANTS FOR 'monitor'@'%';
-SQL
+echo "\nWaiting for mysql-1 and mysql-2 to be Ready..."
+oc wait pod/mysql-1 --for=condition=Ready --timeout=180s
+oc wait pod/mysql-2 --for=condition=Ready --timeout=180s
 
 echo "\nDeploying ProxySQL..."
 oc apply -f proxysql-cm.yml
