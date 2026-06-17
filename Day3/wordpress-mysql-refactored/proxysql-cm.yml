@@ -19,17 +19,18 @@ data:
       default_query_timeout=36000000
       max_connections=2048
       default_schema="wordpress"
-      # Credentials ProxySQL uses to health-check MySQL backends.
-      # Must match the 'monitor'@'%' user created in deploy.sh on mysql-0.
       monitor_username="monitor"
       monitor_password="monitor"
       monitor_connect_interval=2000
       monitor_ping_interval=2000
+      # Disable SSL between clients and ProxySQL.
+      # MariaDB in this lab is not configured with SSL certificates,
+      # so requiring SSL causes 'SSL is required' errors from WordPress.
+      have_ssl=false
+      # Disable SSL between ProxySQL and MySQL backends.
+      mysql_ssl_capath=""
     }
 
-    # hostgroup 10 = writer  -> mysql-0 (primary, handles all writes)
-    # hostgroup 20 = readers -> mysql-0, mysql-1, mysql-2 (serve SELECT queries)
-    # mysql-0 is in both groups so reads still work with a single replica.
     mysql_servers=
     (
       {
@@ -48,7 +49,7 @@ data:
         status="ONLINE"
         weight=1
         max_connections=100
-        comment="primary - also serves reads when no replicas exist"
+        comment="primary - also serves reads"
       },
       {
         address="mysql-1.mysql"
@@ -80,9 +81,6 @@ data:
       }
     )
 
-    # Rule 1: SELECT ... FOR UPDATE must go to the writer (row locking).
-    # Rule 2: All other SELECTs go to readers (round-robin across hostgroup 20).
-    # Everything else (INSERT/UPDATE/DELETE) falls through to default_hostgroup=10.
     mysql_query_rules=
     (
       {
