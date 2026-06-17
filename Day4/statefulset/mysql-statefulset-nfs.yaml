@@ -36,7 +36,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    server: 192.168.1.100        # EDIT
+    server: 192.168.10.201        # EDIT
     path: /var/nfs/jegan/mysql-1       # EDIT
 ---
 apiVersion: v1
@@ -50,7 +50,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    server: 192.168.1.100        # EDIT
+    server: 192.168.10.201        # EDIT
     path: /var/nfs/jegan/mysql-2       # EDIT
 ---
 # ---- Config fragments + init/replication scripts ----
