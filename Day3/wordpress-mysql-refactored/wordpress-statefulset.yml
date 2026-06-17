@@ -47,11 +47,7 @@ spec:
         - sh
         - "-c"
         - |
-          cat > /mysqlconf/my.cnf << 'MYCNF'
-[client]
-skip-ssl
-ssl=false
-MYCNF
+          printf '[client]\nskip-ssl\nssl=false\n' > /mysqlconf/my.cnf
           echo "my.cnf written:"
           cat /mysqlconf/my.cnf
         volumeMounts:
