@@ -50,11 +50,20 @@ spec:
           # ProxySQL reads its config from this path on startup.
           mountPath: /etc/proxysql.cnf
           subPath: proxysql.cnf
+        - name: proxysql-datadir
+          # OpenShift runs containers as a random non-root UID.
+          # The ProxySQL image creates /var/lib/proxysql owned by root,
+          # so the container cannot write SSL certs or its SQLite datadir there.
+          # An emptyDir is created fresh per Pod with the container's UID as
+          # owner, giving ProxySQL a writable datadir and unblocking SSL init.
+          mountPath: /var/lib/proxysql
 
       volumes:
       - name: proxysql-config
         configMap:
           name: proxysql-cm
+      - name: proxysql-datadir
+        emptyDir: {}
 
 ---
 apiVersion: v1
@@ -65,8 +74,7 @@ metadata:
     app: proxysql
 spec:
   # WordPress connects to 'proxysql:6033'.
-  # ProxySQL then decides whether the query goes to mysql-0 (writer)
-  # or mysql-1/mysql-2 (readers) based on the query rules.
+  # ProxySQL routes writes to mysql-0 and reads to mysql-1/mysql-2.
   ports:
   - name: mysql
     port: 6033
