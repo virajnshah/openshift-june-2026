@@ -50,3 +50,24 @@ oc apply -f nginx-nodeport-svc.yml
 oc get svc
 oc describe svc/nginx
 ```
+
+## Info - Persistent Volume (PV)
+<pre>
+- is the external storage Pods can use to store data externally
+- Persistent Volume can be supported by NFS, AWS S3, etc.,
+- PV can be provisioned manually by System Administrators, or can be provisioned dynamically using Storage Class
+- Storage Class can be created using yaml manifest file
+</pre>
+
+## Info - Persistent Volume Claim (PVC)
+<pre>
+- is the storage request from a Pod
+- in other words, any Pod that needs external storage, should ask the cluster for external storage
+  by definining PVC
+  - how much storage is required
+  - what type of access is required, ReadWriteOnce, ReadWriteMany,etc.,
+  - StorageClass( Optional ) - a way PV can be dynamically provisioned on demand from NFS, S3 buckets, etc.,
+  - Label constraints ( optional )
+- If the Storage Controller, finds a matching PV that meets all the constraints of PVC, then it will let your Pod
+  claim the storage and use it
+</pre>
