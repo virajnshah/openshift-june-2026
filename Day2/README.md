@@ -369,8 +369,5 @@ curl http://192.168.100.13:31269 # Master 3
 curl http://192.168.100.21:31269 # Worker 1
 curl http://192.168.100.22:31269 # Worker 2
 curl http://192.168.100.23:31269 # Worker 3
-
-
-
 ```
 
