@@ -120,4 +120,4 @@ spec:
 
         volumeMounts:
         - name: wordpress-storage
-          mountPath: /bitnami/wordpress
+          mountPath: /bitnami
