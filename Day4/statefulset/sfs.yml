@@ -218,4 +218,4 @@ spec:
         accessModes: ["ReadWriteOnce"]
         storageClassName: nfs
         resources:
-          requests: { storage: 10Gi }
+          requests: { storage: 100Mi }
