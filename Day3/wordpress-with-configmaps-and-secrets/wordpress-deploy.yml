@@ -36,7 +36,19 @@ spec:
               name: wordpress-login-credentials
               key: username 
 
+        - name: WORDPRESS_USERNAME
+          valueFrom: 
+            secretKeyRef:
+              name: wordpress-login-credentials
+              key: username 
+
         - name: WORDPRESS_DATABASE_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: wordpress-login-credentials
+              key: password 
+
+        - name: WORDPRESS_PASSWORD
           valueFrom: 
             secretKeyRef:
               name: wordpress-login-credentials
@@ -48,13 +60,19 @@ spec:
               name: wordpress-cm
               key: db_name
 
+        - name: WORDPRESS_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-cm
+              key: db_service_name
+
         - name: WORDPRESS_DATABASE_HOST
           valueFrom:
             configMapKeyRef:
               name: wordpress-cm
               key: db_service_name
 
-        - name: WORDPRESS_DATABASE_PORT
+        - name: WORDPRESS_DATABASE_PORT_NUMBER
           valueFrom:
             configMapKeyRef:
               name: wordpress-cm
