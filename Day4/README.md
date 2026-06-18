@@ -89,7 +89,7 @@ oc get pods -o wide
 ## Lab - Securing your application using https url (edge route )
 ```
 oc delete project jegan
-oc new-project jegan
+oc new-project jeganSecuring applications in RedHat OpenShift
 oc create deploy nginx --image=image-registry.openshift-image-registry.svc:5000/openshift/bitnami-nginx:1.28 --replicas=3
 oc get deploy,pods
 oc expose deploy/nginx --port=8080
@@ -109,3 +109,30 @@ oc create route edge --service nginx --hostname nginx-jegan.apps.ocp4.palmeto.or
 oc get route
 curl -k https://nginx-jegan.apps.ocp4.palmeto.org
 ```
+
+## Lab - Ingress
+<pre>
+- Ingress is a Kubernetes feature which is also supported in Openshift
+- Ingress provides a public url to expose multiple services using certain rules
+  like path as prefix
+- Unlike OpenShift Route which generally forwards the request to only one Service,
+  Ingress forwards the call to multiple services based on rules
+- Ingress is a set of forwarding rules
+- Ingress is not a service
+- Ingress Controller running in Openshift cluster, keeps looking for Ingress rules
+  written under any project namespace
+- Whenever, Ingress Controller detects a new Ingress, or an existing Ingress rule got updated or deleted 
+  it gets notified
+- Ingress Controller retrieves the rules from Ingress and it configures the Load Balancer so the
+  Ingress rules will start working
+- For an Ingress to work in Kubernetes/Rancher/Openshift, 3 Components are required
+  1. Ingress ( Rules )
+  2. Ingress Controller
+     - Nginx Ingress Controller
+     - HAProxy Ingress Controller
+     - Traefik Ingress Controller
+  3. Load Balancer
+     - Nginx Load Balancer
+     - HAProxy Load Balancer
+     - Traefik Load Balancer
+</pre>
