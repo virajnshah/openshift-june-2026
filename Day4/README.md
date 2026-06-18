@@ -15,4 +15,6 @@ oc expose svc/hello-microservice
 oc logs -f bc/hello-microservice
 
 oc get svc,route
+
+curl --insecure http://hello-microservice-jegan.apps.ocp4.palmeto.org
 ```
