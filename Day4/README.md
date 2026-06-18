@@ -43,5 +43,5 @@ oc get route
 
 We need to stree the pod with more traffic
 ```
-ab -k -n 200000 -c 500 https://nginx-jegan.apps.ocp4.palmeto.org/
+ab -k -n 200000 -c 1000 https://nginx-jegan.apps.ocp4.palmeto.org/
 ```
