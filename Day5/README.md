@@ -14,6 +14,56 @@ chmod 700 get_helm.sh
 - In case of Openshift, it is pre-integrated in Openshift webconsole
 </pre>  
 
+## Info - Openshift Network Model
+<pre>
+- Openshift's network operates in layers
+- It is important to understand how traffic flows through each layers for debugging & troubleshooting
+- Core Concepts
+  1. Container Network Interface (CNI)
+  2. Pod to Pod Communication
+  3. Services and Load Balancing
+</pre>
+
+#### Container Network Interace (CNI)
+<pre>
+- Openshift uses a CNI plugin to handle pod networking
+- the default is OVN-Kubernetes ( Openshift Virtual Network)
+- OVN creates a virtual network overlay where every pod gets a real, routable IP address
+  from the cluster subnet
+</pre>
+
+#### Pod to Pod Communication
+<pre>
+- When a Pod A sends traffic to Pod B, OVN handles the routing without needing kube-proxy
+- Packets flow through the overlay network
+- Both pods live on the same logical network namesapces, if even if they are on different nodes
+- The network plugin encapsulates packets and routes them to the correct node
+</pre>
+
+#### Services and Load Balancing
+<pre>
+- Services abstract pods IP addresses as Pod IPs are ephemeral
+- When you create a service, it gets a stable cluster IP
+- The kube-proxy watches endpoints and programs iptable rules on every node
+- The rules use DNAT with random probability-weighted distribution for new connections
+- each new connection picks a backend pod randomly according to their weights
+- Pod to Pod communication via Internal Service
+  - Pod A queries the service DNS name, gets resolved to cluster IP 
+  - Packtet hits a nodes's iptable rules
+  - DNAT rewrites the destination to a real Pod IP
+  - OVN routes to the target node and pod
+- Pod to Pod communication via External Route
+  - Uses Route or Ingress object
+  - Route creates a HAProxy rule on the ingress controller pods
+  - Traffic lands on the Ingress controller, which forwards to the service
+  - service load balancing takes over from there
+- Egress ( pod to external traffic )
+  - Pods use their Node's IP aas source 
+  - Outbound traffic appears to come from the cluster, not from individual pods
+</pre>
+
+
+
 ## Lab - Packaging wordpress and mysql as Helm Chart and deploying into Openshift
 ```
 # In case, you haven't cloned this training repository already, you can do now
