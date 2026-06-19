@@ -871,6 +871,17 @@ oc apply -f buildconfig.yml
 oc policy add-role-to-user edit system:serviceaccount:jegan:default
 oc start-build java-app-pipeline --follow
 ```
+![Jenkins](img16.png)
+![Jenkins](img17.png)
+![Jenkins](img18.png)
+![Jenkins](img19.png)
+![Jenkins](img20.png)
+![Jenkins](img21.png)
+![Jenkins](img22.png)
+![Jenkins](img23.png)
+![Jenkins](img24.png)
+![Jenkins](img25.png)
+![Jenkins](img26.png)
 
 
 ## Additional Lab - Do you want to see how etcd organizes data internally
