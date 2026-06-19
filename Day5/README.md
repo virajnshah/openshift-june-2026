@@ -840,6 +840,24 @@ Choose Weave when:
 - Need automatic network discovery
 </pre>
 
+## Lab - Deploy Jenkins in Openshift
+![Jenkins](img1.png)
+![Jenkins](img2.png)
+![Jenkins](img3.png)
+![Jenkins](img4.png)
+![Jenkins](img5.png)
+![Jenkins](img6.png)
+![Jenkins](img7.png)
+![Jenkins](img8.png)
+![Jenkins](img9.png)
+![Jenkins](img10.png)
+![Jenkins](img11.png)
+![Jenkins](img12.png)
+![Jenkins](img13.png)
+![Jenkins](img14.png)
+![Jenkins](img15.png)
+
+
 ## Lab - Setup Jenkins CI CD Pipeline in Openshift
 ```
 cd ~
@@ -907,3 +925,4 @@ exit
 ```
 bazel run //src:md2pdf -- --source https://github.com/tektutor/openshift-june-2026.git --folders Day1 Day2 Day3 Day4 Day5 --output $PWD/training-material.pdf
 ```
+
