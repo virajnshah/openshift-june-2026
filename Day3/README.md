@@ -1,5 +1,10 @@
 # Day 3
 
+## Info - You can find Red Hat Base images here
+<pre>
+https://catalog.redhat.com/en/software/containers/explore
+</pre>
+
 ## Info - What happens internally in Openshift when we deploy an application
 ```
 oc create deploy nginx --image=docker.io/bitnamilegay/nginx:latest --replicas=3
