@@ -226,7 +226,7 @@ docker images
 
 ## Lab - Find more details about a docker image
 ```
-docker inspect image mysql:latest
+docker image inspect mysql:latest
 ```
 
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/fc6f705d-38a1-4324-ba55-a50822401ab3" />
